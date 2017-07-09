@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
 
-import json
-from httplib2 import Http
+#import json
+#from httplib2 import Http
 import urllib2
 import urllib
-from urllib import urlencode
+#from urllib import urlencode
 
 import RPi.GPIO as GPIO
 import time ## Import 'time' library.  Allows us to use 'sleep'
@@ -14,7 +14,7 @@ import signal
 
 
 continue_reading = True
-url = "http://192.34.59.148:3000"
+url = "http://192.34.59.148:3000/position"
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(7, GPIO.OUT) ## Setup GPIO pin 7 to OUT
 
@@ -44,7 +44,7 @@ signal.signal(signal.SIGINT, end_read)
 MIFAREReader = MFRC522.MFRC522()
 
 # Welcome message
-print "Welcome to the MFRC522 data read example"
+#print "Welcome to the MFRC522 data read example"
 print "Press Ctrl-C to stop."
 
 
@@ -58,6 +58,7 @@ while continue_reading:
     # If a card is found
     if status == MIFAREReader.MI_OK:
         print "Card detected"
+        #Blink(int(5),float(0.05))
         
     # Get the UID of the card
     (status,uid) = MIFAREReader.MFRC522_Anticoll()
@@ -66,7 +67,7 @@ while continue_reading:
     if status == MIFAREReader.MI_OK:
 
         # Print UID
-        print "Card read UID: "+str(uid[0])+","+str(uid[1])+","+str(uid[2])+","+str(uid[3])
+        print "Card read UID: "+str(uid[0])#+","+str(uid[1])+","+str(uid[2])+","+str(uid[3])
                
         
         # This is the default key for authentication
@@ -84,11 +85,12 @@ while continue_reading:
             MIFAREReader.MFRC522_StopCrypto1()
             Blink(int(5),float(0.05))
             #h = Http()
-            
             query_args={"TYPE": "4","U_ID": str(uid[0]),"POS": "1"}
             data=urllib.urlencode(query_args)
             request= urllib2.Request(url,data)
+            #print "hola mundo"
             response= urllib2.urlopen(request).read()
+            #print "hola mundo2"
             #print response
 
             
