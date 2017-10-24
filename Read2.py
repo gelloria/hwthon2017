@@ -14,7 +14,7 @@ import signal
 
 
 continue_reading = True
-url = "http://192.34.59.148:3000/position"
+url = "http://159.203.114.18:3000/position"
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(7, GPIO.OUT) ## Setup GPIO pin 7 to OUT
 
